@@ -115,6 +115,12 @@ function createFileFromChunks($temp_dir, $fileName, $chunkSize, $totalSize) {
 // THE SCRIPT
 ////////////////////////////////////////////////////////////////////
 
+// If the request is not post - return ERROR - this is a `chunkTest` request
+// the test requests are not supported in this script yet
+if ($_SERVER['REQUEST_METHOD'] != 'POST') {
+	header('HTTP/1.1 500 Internal Server Error');
+	die();
+}
 
 // loop through files and move the chunks to a temporarily created directory
 if (!empty($_FILES)) foreach ($_FILES as $file) {
